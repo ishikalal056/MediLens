@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>MediLens | Patient Portal</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            color: #0f172a;
+
+            background:
+                radial-gradient(
+                    circle at 8% 18%,
+                    rgba(147, 197, 253, 0.35) 0,
+                    rgba(147, 197, 253, 0) 22%
+                ),
+                radial-gradient(
+                    circle at 92% 10%,
+                    rgba(191, 219, 254, 0.50) 0,
+                    rgba(191, 219, 254, 0) 25%
+                ),
+                radial-gradient(
+                    circle at 88% 88%,
+                    rgba(96, 165, 250, 0.20) 0,
+                    rgba(96, 165, 250, 0) 28%
+                ),
+                linear-gradient(
+                    135deg,
+                    #f8fbff 0%,
+                    #eef6ff 50%,
+                    #f8fbff 100%
+                );
+
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+
+        /* =========================================
+           DECORATIVE HEALTHCARE BACKGROUND
+        ========================================= */
+
+        .background-decoration {
+            position: fixed;
+            inset: 0;
+
+            overflow: hidden;
+
+            pointer-events: none;
+
+            z-index: 0;
+        }
+
+
+        .circle {
+            position: absolute;
+
+            border-radius: 50%;
+
+            background: rgba(96, 165, 250, 0.10);
+        }
+
+
+        .circle-one {
+            width: 150px;
+            height: 150px;
+
+            top: 80px;
+            left: 170px;
+        }
+
+
+        .circle-two {
+            width: 280px;
+            height: 280px;
+
+            top: -120px;
+            right: -70px;
+
+            border: 2px solid rgba(96, 165, 250, 0.12);
+
+            background: transparent;
+        }
+
+
+        .circle-three {
+            width: 500px;
+            height: 500px;
+
+            bottom: -340px;
+            left: -180px;
+
+            background: rgba(59, 130, 246, 0.09);
+        }
+
+
+        .medical-cross {
+            position: absolute;
+
+            font-size: 58px;
+
+            font-weight: 300;
+
+            color: rgba(37, 99, 235, 0.09);
+        }
+
+
+        .cross-one {
+            top: 250px;
+            left: 90px;
+        }
+
+
+        .cross-two {
+            top: 170px;
+            right: 160px;
+        }
+
+
+        .cross-three {
+            bottom: 150px;
+            right: 100px;
+
+            font-size: 42px;
+        }
+
+
+        /* =========================================
+           DOT PATTERN
+        ========================================= */
+
+        .dots {
+            position: absolute;
+
+            width: 120px;
+            height: 90px;
+
+            background-image:
+                radial-gradient(
+                    rgba(37, 99, 235, 0.20) 2px,
+                    transparent 2px
+                );
+
+            background-size: 20px 20px;
+
+            opacity: 0.7;
+        }
+
+
+        .dots-one {
+            top: 65px;
+            left: 55px;
+        }
+
+
+        .dots-two {
+            top: 190px;
+            right: 45px;
+        }
+
+
+        /* =========================================
+           ECG LINE
+        ========================================= */
+
+        .ecg-line {
+            position: absolute;
+
+            left: -10px;
+            top: 42%;
+
+            width: 300px;
+            height: 90px;
+
+            opacity: 0.12;
+        }
+
+
+        .ecg-line svg {
+            width: 100%;
+            height: 100%;
+        }
+
+
+        /* =========================================
+           WAVE SHAPES
+        ========================================= */
+
+        .wave {
+            position: absolute;
+
+            width: 900px;
+            height: 220px;
+
+            border-radius: 50%;
+
+            transform: rotate(-8deg);
+        }
+
+
+        .wave-one {
+            left: -180px;
+            bottom: -125px;
+
+            background:
+                rgba(96, 165, 250, 0.12);
+        }
+
+
+        .wave-two {
+            right: -260px;
+            bottom: -105px;
+
+            background:
+                rgba(147, 197, 253, 0.16);
+        }
+
+
+        /* =========================================
+           MAIN PAGE
+        ========================================= */
+
+        .patient-page {
+    position: relative;
+    z-index: 2;
+
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px 20px 70px;
+}
+
+
+        .patient-login-wrapper {
+            width: 100%;
+
+            max-width: 500px;
+        }
+
+
+        /* =========================================
+           BRAND
+        ========================================= */
+
+        .patient-brand {
+            text-align: center;
+
+            margin-bottom: 24px;
+        }
+
+
+        .brand-logo {
+            width: 72px;
+            height: 72px;
+
+            margin: 0 auto 10px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 17px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #22c1c3,
+                    #2563eb
+                );
+
+            color: white;
+
+            font-size: 30px;
+
+            box-shadow:
+                0 10px 25px
+                rgba(37, 99, 235, 0.20);
+        }
+
+
+        .brand-logo img {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+
+        .patient-brand h1 {
+            margin: 0;
+
+            font-size: 30px;
+
+            font-weight: 700;
+
+            letter-spacing: -0.5px;
+
+            color: #173b67;
+        }
+
+
+        .patient-brand p {
+            margin: 6px 0 0;
+
+            color: #64748b;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================================
+           LOGIN CARD
+        ========================================= */
+
+        .patient-login-card {
+            width: 100%;
+
+            background:
+                rgba(255, 255, 255, 0.94);
+
+            border:
+                1px solid
+                rgba(226, 232, 240, 0.9);
+
+            border-radius: 22px;
+
+            padding: 34px 38px;
+
+            box-shadow:
+                0 25px 60px
+                rgba(37, 99, 235, 0.10),
+                0 8px 25px
+                rgba(15, 23, 42, 0.06);
+
+            backdrop-filter: blur(10px);
+        }
+
+
+        /* =========================================
+           LOGIN ICON
+        ========================================= */
+
+        .patient-login-icon {
+            width: 64px;
+            height: 64px;
+
+            margin: 0 auto 18px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background:
+                #eff6ff;
+
+            border-radius: 18px;
+
+            font-size: 29px;
+
+            box-shadow:
+                inset 0 0 0 1px
+                rgba(37, 99, 235, 0.04);
+        }
+
+
+        .patient-login-card h2 {
+            margin: 0;
+
+            text-align: center;
+
+            color: #0f172a;
+
+            font-size: 23px;
+        }
+
+
+        .patient-login-subtitle {
+            margin: 8px 0 28px;
+
+            text-align: center;
+
+            color: #64748b;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================================
+           FORM
+        ========================================= */
+
+        .login-field {
+            margin-bottom: 18px;
+        }
+
+
+        .login-field label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #334155;
+
+            font-size: 13px;
+
+            font-weight: 600;
+        }
+
+
+        .input-wrapper {
+            position: relative;
+        }
+
+
+        .input-icon {
+            position: absolute;
+
+            left: 14px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            color: #64748b;
+
+            font-size: 16px;
+
+            pointer-events: none;
+        }
+
+
+        .login-field input {
+            width: 100%;
+
+            padding: 13px 14px 13px 42px;
+
+            border:
+                1px solid
+                #cbd5e1;
+
+            border-radius: 11px;
+
+            background:
+                #f8fafc;
+
+            color: #0f172a;
+
+            font-size: 14px;
+
+            outline: none;
+
+            transition:
+                0.2s ease;
+        }
+
+
+        .login-field input:focus {
+            border-color: #2563eb;
+
+            background: #ffffff;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(37, 99, 235, 0.10);
+        }
+
+
+        .login-field input::placeholder {
+            color: #94a3b8;
+        }
+
+
+        /* =========================================
+           PASSWORD EYE
+        ========================================= */
+
+        .password-toggle {
+            position: absolute;
+
+            right: 12px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            border: none;
+
+            background: transparent;
+
+            color: #64748b;
+
+            font-size: 17px;
+
+            cursor: pointer;
+
+            padding: 5px;
+        }
+
+
+        .password-toggle:hover {
+            color: #2563eb;
+        }
+
+
+        /* =========================================
+           ERROR
+        ========================================= */
+
+        .patient-login-error {
+            display: none;
+
+            margin-bottom: 15px;
+
+            padding: 10px 12px;
+
+            border-radius: 9px;
+
+            background: #fef2f2;
+
+            border:
+                1px solid
+                #fecaca;
+
+            color: #b91c1c;
+
+            font-size: 13px;
+        }
+
+
+        /* =========================================
+           LOGIN BUTTON
+        ========================================= */
+
+        .patient-login-button {
+            width: 100%;
+
+            border: none;
+
+            border-radius: 11px;
+
+            padding: 14px 16px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #22c1c3,
+                    #0ea5a4
+                );
+
+            color: #ffffff;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 8px 18px
+                rgba(37, 99, 235, 0.18);
+
+            transition:
+                0.2s ease;
+        }
+
+
+        .patient-login-button:hover {
+    transform: translateY(-1px);
+
+    background:
+        linear-gradient(
+            135deg,
+            #1fb5b7,
+            #0d9493
+        );
+
+    box-shadow:
+        0 11px 22px
+        rgba(14, 165, 164, 0.24);
+}
+
+
+        .patient-login-button:active {
+            transform: translateY(0);
+        }
+
+
+        .patient-login-button:disabled {
+            opacity: 0.65;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+
+        /* =========================================
+           SECURITY NOTE
+        ========================================= */
+
+        .patient-security-note {
+            display: flex;
+
+            gap: 8px;
+
+            margin-top: 22px;
+
+            padding: 12px;
+
+            border-radius: 10px;
+
+            background:
+                #f8fafc;
+
+            color: #64748b;
+
+            font-size: 11px;
+
+            line-height: 1.5;
+
+            text-align: center;
+
+            justify-content: center;
+        }
+
+
+        /* =========================================
+           HOSPITAL LINK
+        ========================================= */
+
+        .hospital-link {
+            display: block;
+
+            margin-top: 19px;
+
+            text-align: center;
+
+            color: #64748b;
+
+            font-size: 12px;
+
+            text-decoration: none;
+        }
+
+
+        .hospital-link:hover {
+            color: #2563eb;
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 600px) {
+
+            .patient-page {
+                padding: 20px 15px;
+            }
+
+
+            .patient-login-card {
+                padding: 28px 22px;
+            }
+
+
+            .patient-brand h1 {
+                font-size: 27px;
+            }
+
+
+            .circle-one {
+                left: -60px;
+            }
+
+
+            .cross-one {
+                left: 20px;
+            }
+
+
+            .cross-two {
+                right: 30px;
+            }
+
+
+            .ecg-line {
+                left: -100px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================
+         HEALTHCARE BACKGROUND
+    ========================================= -->
+
+    <div class="background-decoration">
+
+        <div class="circle circle-one"></div>
+
+        <div class="circle circle-two"></div>
+
+        <div class="circle circle-three"></div>
+
+
+        <div class="dots dots-one"></div>
+
+        <div class="dots dots-two"></div>
+
+
+        <div class="medical-cross cross-one">
+            ✚
+        </div>
+
+        <div class="medical-cross cross-two">
+            ✚
+        </div>
+
+        <div class="medical-cross cross-three">
+            ✚
+        </div>
+
+
+        <!-- ECG -->
+
+        <div class="ecg-line">
+
+            <svg
+                viewBox="0 0 300 90"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+
+                <path
+                    d="M0 48
+                       H55
+                       L70 48
+                       L82 20
+                       L98 75
+                       L112 35
+                       L125 48
+                       H190
+                       L205 48
+                       L218 28
+                       L232 65
+                       L245 48
+                       H300"
+                    stroke="#2563eb"
+                    stroke-width="4"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"/>
+
+            </svg>
+
+        </div>
+
+
+        <div class="wave wave-one"></div>
+
+        <div class="wave wave-two"></div>
+
+    </div>
+
+
+
+    <!-- =========================================
+         MAIN PAGE
+    ========================================= -->
+
+    <main class="patient-page">
+
+        <div class="patient-login-wrapper">
+
+
+            <!-- BRAND -->
+
+            <div class="patient-brand">
+
+    <div class="brand-logo">
+        <img
+            src="images/medilens-logo.png"
+            alt="MediLens Logo"
+        >
+    </div>
+
+    <h1>
+        MediLens
+    </h1>
+
+    <p>
+        Secure Patient Portal
+    </p>
+
+</div>
+
+
+            <!-- LOGIN CARD -->
+
+            <div class="patient-login-card">
+
+
+                <div class="patient-login-icon">
+                    🔐
+                </div>
+
+
+                <h2>
+                    Welcome to MediLens
+                </h2>
+
+
+                <p class="patient-login-subtitle">
+                    Sign in using your Patient ID and password
+                </p>
+
+
+
+                <!-- LOGIN FORM -->
+
+                <form id="patientLoginForm">
+
+
+                    <!-- PATIENT ID -->
+
+                    <div class="login-field">
+
+                        <label for="patientLoginId">
+                            Patient ID
+                        </label>
+
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                👤
+                            </span>
+
+
+                            <input
+                                type="text"
+                                id="patientLoginId"
+                                placeholder="e.g. MLP00001"
+                                autocomplete="username"
+                                required>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="login-field">
+
+                        <label for="patientLoginPassword">
+                            Password
+                        </label>
+
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                🔒
+                            </span>
+
+
+                            <input
+                                type="password"
+                                id="patientLoginPassword"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required>
+
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                id="passwordToggle"
+                                aria-label="Show password">
+
+                                👁
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ERROR -->
+
+                    <div
+                        id="patientLoginError"
+                        class="patient-login-error">
+                    </div>
+
+
+
+                    <!-- LOGIN BUTTON -->
+
+                    <button
+                        type="submit"
+                        id="patientLoginBtn"
+                        class="patient-login-button">
+
+                        Login to Patient Portal
+
+                    </button>
+
+
+                </form>
+
+
+
+                <!-- SECURITY NOTE -->
+
+                <div class="patient-security-note">
+
+                    <span>
+                        🔒
+                    </span>
+
+                    <span>
+                        Your medical information is private
+                        and accessible only through your
+                        Patient ID.
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- HOSPITAL DASHBOARD LINK -->
+
+            <a
+                href="index.html"
+                class="hospital-link">
+
+                Hospital / Analytics Dashboard
+
+            </a>
+
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================================
+         PASSWORD TOGGLE
+    ========================================= -->
+
+    <script>
+
+        const passwordInput =
+            document.getElementById(
+                "patientLoginPassword"
+            );
+
+        const passwordToggle =
+            document.getElementById(
+                "passwordToggle"
+            );
+
+
+        if (
+            passwordInput &&
+            passwordToggle
+        ) {
+
+            passwordToggle.addEventListener(
+                "click",
+                function () {
+
+                    if (
+                        passwordInput.type ===
+                        "password"
+                    ) {
+
+                        passwordInput.type =
+                            "text";
+
+                        passwordToggle.textContent =
+                            "🙈";
+
+                        passwordToggle.setAttribute(
+                            "aria-label",
+                            "Hide password"
+                        );
+
+                    } else {
+
+                        passwordInput.type =
+                            "password";
+
+                        passwordToggle.textContent =
+                            "👁";
+
+                        passwordToggle.setAttribute(
+                            "aria-label",
+                            "Show password"
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+
+    </script>
+
+    <script src="js/patient.js"></script>
+
+
+</body>
+
+</html>

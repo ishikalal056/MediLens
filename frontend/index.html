@@ -1,0 +1,2486 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>MediLens | Healthcare Analytics</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-logo">
+
+    <img
+        src="images/medilens-logo.png"
+        alt="MediLens Logo"
+    >
+
+</div>
+
+
+            <div>
+
+                <h2>MediLens</h2>
+
+                <span>
+                    Healthcare Analytics
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="nav-title">
+            MAIN MENU
+        </div>
+
+
+        <nav>
+
+            <a href="#dashboard"
+               class="nav-link active"
+               onclick="showSection('dashboard'); return false;">
+
+                <span>▦</span>
+
+                Dashboard
+
+            </a>
+
+
+            <a href="#patients"
+               class="nav-link"
+               onclick="showSection('patients'); return false;">
+
+                <span>♙</span>
+
+                Patients
+
+            </a>
+
+
+            
+<a href="#care-plan"
+   class="nav-link"
+   onclick="showSection('care-plan'); return false;">
+    <span>♡</span>
+    Care Plan
+</a>
+
+
+
+            <a href="#analytics"
+               class="nav-link"
+               onclick="showSection('analytics'); return false;">
+
+                <span>◈</span>
+
+                Analytics
+
+            </a>
+
+
+            <a href="#prediction"
+   class="nav-link"
+   onclick="showSection('prediction'); return false;">
+
+    <span>🧠</span>
+
+    AI Prediction
+
+</a>
+
+
+            <a href="#insights"
+               class="nav-link"
+               onclick="showSection('insights'); return false;">
+
+                <span>✦</span>
+
+                Insights
+
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="health-status">
+
+                <div class="status-icon">
+                    ✓
+                </div>
+
+                <div>
+
+                    <strong>
+                        System Healthy
+                    </strong>
+
+                    <small>
+                        All services operational
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="sidebar-footer">
+                MediLens Analytics v1.0
+            </div>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- =================================================
+             TOP BAR
+        ================================================== -->
+
+        <header class="topbar">
+
+            <div>
+
+                <div class="breadcrumb">
+                    Healthcare / Analytics
+                </div>
+
+                <h1>
+                    Healthcare Dashboard
+                </h1>
+
+            </div>
+
+
+            <div class="topbar-right">
+
+                <div class="live-status">
+
+                    <span class="live-dot"></span>
+
+                    Live Data
+
+                </div>
+
+
+                <div class="date-display">
+
+                    📊 Dataset Overview
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================================
+             DASHBOARD
+        ================================================== -->
+
+        <section id="dashboard">
+
+
+            <!-- HERO -->
+
+            <div class="hero">
+
+                <div class="hero-content">
+
+                    <span class="hero-label">
+                        HEALTHCARE INTELLIGENCE
+                    </span>
+
+
+                    <h2>
+
+                        Understand your patient data
+
+                        <span>
+                            at a glance.
+                        </span>
+
+                    </h2>
+
+
+                    <p>
+
+                        Explore patient demographics, medical
+                        conditions, billing patterns and admission
+                        trends through interactive analytics.
+
+                    </p>
+
+                </div>
+
+
+                <div class="hero-decoration">
+
+                    <div class="pulse-circle">
+                        ♥
+                    </div>
+
+                    <div class="pulse-line">
+                        ──╱╲──╱╲────
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 FILTERS
+            ================================================== -->
+
+            <div class="filter-panel">
+
+
+                <div class="filter-heading">
+
+                    <div class="filter-icon">
+                        ⚙
+                    </div>
+
+
+                    <div>
+
+                        <h3>
+                            Dashboard Filters
+                        </h3>
+
+                        <p>
+                            Refine the data shown across the dashboard
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="filters">
+
+
+                    <!-- Gender -->
+
+                    <div class="filter-group">
+
+                        <label>
+                            Gender
+                        </label>
+
+                        <select id="genderFilter">
+
+                            <option value="All">
+                                All Genders
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- Medical Condition -->
+
+                    <div class="filter-group">
+
+                        <label>
+                            Medical Condition
+                        </label>
+
+                        <select id="conditionFilter">
+
+                            <option value="All">
+                                All Conditions
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- Admission -->
+
+                    <div class="filter-group">
+
+                        <label>
+                            Admission Type
+                        </label>
+
+                        <select id="admissionFilter">
+
+                            <option value="All">
+                                All Admissions
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- Test Result -->
+
+                    <div class="filter-group">
+
+                        <label>
+                            Test Result
+                        </label>
+
+                        <select id="testFilter">
+
+                            <option value="All">
+                                All Results
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                <div class="filter-group hospital-filter-group">
+
+    <label>Hospital</label>
+
+    <div class="hospital-search-wrapper">
+
+        <input
+            type="text"
+            id="hospitalSearch"
+            placeholder="Search hospital..."
+            autocomplete="off"
+        >
+
+        <input
+            type="hidden"
+            id="hospitalFilter"
+            value="All"
+        >
+
+        <div
+            id="hospitalResults"
+            class="hospital-results">
+        </div>
+
+    </div>
+
+</div>
+
+
+
+                    <button
+                        id="resetFilters"
+                        class="reset-btn">
+
+                        ↻ Reset
+
+                    </button>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 KPI SECTION
+            ================================================== -->
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span>
+                        KEY METRICS
+                    </span>
+
+                    <h2>
+                        Patient Overview
+                    </h2>
+
+                </div>
+
+
+                <p>
+                    Current dataset summary
+                </p>
+
+            </div>
+
+
+
+            <div class="kpi-grid">
+
+
+                <!-- TOTAL PATIENTS -->
+
+                <div class="kpi-card blue">
+
+                    <div class="kpi-top">
+
+                        <div class="kpi-icon">
+                            👥
+                        </div>
+
+                        <span class="kpi-badge">
+                            Patients
+                        </span>
+
+                    </div>
+
+
+                    <p>
+                        Total Patients
+                    </p>
+
+
+                    <h3 id="totalPatients">
+                        --
+                    </h3>
+
+
+                    <small>
+                        Patients in selected dataset
+                    </small>
+
+                </div>
+
+
+
+                <!-- BILLING -->
+
+                <div class="kpi-card green">
+
+                    <div class="kpi-top">
+
+                        <div class="kpi-icon">
+                            $
+                        </div>
+
+                        <span class="kpi-badge">
+                            Billing
+                        </span>
+
+                    </div>
+
+
+                    <p>
+                        Average Billing
+                    </p>
+
+
+                    <h3 id="averageBilling">
+                        --
+                    </h3>
+
+
+                    <small>
+                        Average patient billing
+                    </small>
+
+                </div>
+
+
+
+                <!-- AGE -->
+
+                <div class="kpi-card purple">
+
+                    <div class="kpi-top">
+
+                        <div class="kpi-icon">
+                            ◉
+                        </div>
+
+                        <span class="kpi-badge">
+                            Demographics
+                        </span>
+
+                    </div>
+
+
+                    <p>
+                        Average Age
+                    </p>
+
+
+                    <h3 id="averageAge">
+                        --
+                    </h3>
+
+
+                    <small>
+                        Average patient age
+                    </small>
+
+                </div>
+
+
+
+                <!-- STAY -->
+
+                <div class="kpi-card orange">
+
+                    <div class="kpi-top">
+
+                        <div class="kpi-icon">
+                            🛏
+                        </div>
+
+                        <span class="kpi-badge">
+                            Stay
+                        </span>
+
+                    </div>
+
+
+                    <p>
+                        Average Stay
+                    </p>
+
+
+                    <h3 id="averageStay">
+                        --
+                    </h3>
+
+
+                    <small>
+                        Average length of stay
+                    </small>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 CHARTS
+            ================================================== -->
+
+            <div class="section-heading chart-heading">
+
+                <div>
+
+                    <span>
+                        DATA VISUALIZATION
+                    </span>
+
+                    <h2>
+                        Healthcare Analytics
+                    </h2>
+
+                </div>
+
+
+                <p>
+                    Interactive patient distribution
+                </p>
+
+            </div>
+
+
+
+            <div class="charts-grid">
+
+
+                <!-- CONDITION -->
+
+                <div class="chart-card">
+
+                    <div class="chart-header">
+
+                        <div>
+
+                            <h3>
+                                Patients by Medical Condition
+                            </h3>
+
+                            <p>
+                                Distribution across major conditions
+                            </p>
+
+                        </div>
+
+                        <div class="chart-menu-wrapper">
+
+    <button
+        class="chart-menu"
+        type="button"
+        onclick="toggleChartMenu(this)">
+        •••
+    </button>
+
+    <div class="chart-options">
+
+        <button
+            type="button"
+            onclick="changeChartType('conditionChart', 'bar')">
+            📊 Bar Chart
+        </button>
+
+        <button
+            type="button"
+            onclick="changeChartType('conditionChart', 'line')">
+            📈 Line Chart
+        </button>
+
+        <button
+            type="button"
+            onclick="changeChartType('conditionChart', 'doughnut')">
+            🥧 Doughnut Chart
+        </button>
+
+    </div>
+
+</div>
+
+                    </div>
+
+
+                    <div class="chart-container">
+
+                        <canvas id="conditionChart"></canvas>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- GENDER -->
+
+                <div class="chart-card">
+
+                    <div class="chart-header">
+
+                        <div>
+
+                            <h3>
+                                Gender Distribution
+                            </h3>
+
+                            <p>
+                                Patient demographics
+                            </p>
+
+                        </div>
+
+                        <div class="chart-menu-wrapper">
+
+    <button
+        class="chart-menu"
+        type="button"
+        onclick="toggleChartMenu(this)">
+        •••
+    </button>
+
+    <div class="chart-options">
+
+        <button
+            type="button"
+            onclick="changeChartType('genderChart', 'bar')">
+            📊 Bar Chart
+        </button>
+
+        <button
+            type="button"
+            onclick="changeChartType('genderChart', 'line')">
+            📈 Line Chart
+        </button>
+
+        <button
+            type="button"
+            onclick="changeChartType('genderChart', 'doughnut')">
+            🥧 Doughnut Chart
+        </button>
+
+    </div>
+
+</div>
+
+                    </div>
+
+
+                    <div class="chart-container doughnut-container">
+
+                        <canvas id="genderChart"></canvas>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ADMISSION -->
+
+                <div class="chart-card">
+
+                    <div class="chart-header">
+
+                        <div>
+
+                            <h3>
+                                Admission Types
+                            </h3>
+
+                            <p>
+                                How patients were admitted
+                            </p>
+
+                        </div>
+
+                        <div class="chart-menu-wrapper">
+
+    <button
+        class="chart-menu"
+        type="button"
+        onclick="toggleChartMenu(this)">
+        •••
+    </button>
+
+    <div class="chart-options">
+
+        <button
+            type="button"
+            onclick="changeChartType('admissionChart', 'bar')">
+            📊 Bar Chart
+        </button>
+
+        <button
+            type="button"
+            onclick="changeChartType('admissionChart', 'line')">
+            📈 Line Chart
+        </button>
+
+        <button
+            type="button"
+            onclick="changeChartType('admissionChart', 'doughnut')">
+            🥧 Doughnut Chart
+        </button>
+
+    </div>
+
+</div>
+
+                    </div>
+
+
+                    <div class="chart-container">
+
+                        <canvas id="admissionChart"></canvas>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- TEST RESULTS -->
+
+                <div class="chart-card">
+
+                    <div class="chart-header">
+
+                        <div>
+
+                            <h3>
+                                Test Results
+                            </h3>
+
+                            <p>
+                                Clinical test outcome distribution
+                            </p>
+
+                        </div>
+
+                        <div class="chart-menu-wrapper">
+
+    <button
+        class="chart-menu"
+        type="button"
+        onclick="toggleChartMenu(this)">
+        •••
+    </button>
+
+    <div class="chart-options">
+
+        <button
+            type="button"
+            onclick="changeChartType('testChart', 'bar')">
+            📊 Bar Chart
+        </button>
+
+        <button
+            type="button"
+            onclick="changeChartType('testChart', 'line')">
+            📈 Line Chart
+        </button>
+
+        <button
+            type="button"
+            onclick="changeChartType('testChart', 'doughnut')">
+            🥧 Doughnut Chart
+        </button>
+
+    </div>
+
+</div>
+
+                    </div>
+
+
+                    <div class="chart-container">
+
+                        <canvas id="testChart"></canvas>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             PATIENTS SECTION
+        ====================================================== -->
+
+        <section
+            id="patients"
+            class="extra-section">
+
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span>
+                        PATIENT MANAGEMENT
+                    </span>
+
+                    <h2>
+                        Patient Explorer
+                    </h2>
+
+                </div>
+
+
+                <p>
+                    Explore detailed patient records
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 SEARCH + ADD PATIENT
+            ================================================== -->
+
+            <!-- PATIENT TABS -->
+<div class="patient-tabs">
+
+    <button
+        id="allPatientsTab"
+        class="patient-tab active"
+        type="button">
+        All Patients
+    </button>
+
+    <button
+        id="newPatientsTab"
+        class="patient-tab"
+        type="button">
+        Newly Added
+    </button>
+
+</div>
+
+            <div class="patient-toolbar">
+
+
+                <!-- SEARCH -->
+
+                <div class="patient-search">
+
+                    <span>
+                        🔍
+                    </span>
+
+
+                    <input
+                        type="text"
+                        id="patientSearch"
+                        placeholder="Search Patient ID..."
+                    >
+
+                </div>
+
+
+
+                <!-- SEARCH BUTTON -->
+
+                <button
+                    id="searchPatientBtn"
+                    class="search-btn">
+
+                    Search
+
+                </button>
+
+
+
+                <!-- ADD PATIENT BUTTON -->
+
+                <button
+                    id="addPatientBtn"
+                    class="add-patient-btn">
+
+                    + Add Patient
+
+                </button>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 TABLE
+            ================================================== -->
+
+            <div class="patient-table-card">
+
+
+                <div class="patient-table-header">
+
+                    <div>
+
+                        <h3>
+                            Patient Details
+                        </h3>
+
+                        <p>
+
+                            Showing
+
+                            <span id="patientCount">
+                                0
+                            </span>
+
+                            patients
+
+                        </p>
+
+                    </div>
+
+
+                    <button class="download-btn">
+
+                        ↓ Download CSV
+
+                    </button>
+
+                </div>
+
+
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Patient ID
+                                </th>
+
+                                <th>
+                                    Gender
+                                </th>
+
+                                <th>
+                                    Age
+                                </th>
+
+                                <th>
+                                    Blood Type
+                                </th>
+
+                                <th>
+                                    Admission Date
+                                </th>
+
+                                <th>
+                                    Discharge Date
+                                </th>
+
+                                <th>
+                                    Admission Type
+                                </th>
+
+                                <th>
+                                    Medical Condition
+                                </th>
+
+                                <th>
+                                    Billing Amount
+                                </th>
+
+                                <th>
+                                    Insurance
+                                </th>
+
+                                <th>
+                                    Action
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="patientTableBody">
+
+                            <tr>
+
+                                <td colspan="11">
+
+                                    Loading patients...
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     PAGINATION
+                ================================================== -->
+
+                <div class="table-footer">
+
+
+                    <!-- STATUS -->
+
+                    <span id="tableStatus">
+                        Loading...
+                    </span>
+
+
+
+                    <!-- PAGINATION -->
+
+                    <div class="pagination-controls">
+
+                        <button
+                            id="prevPage"
+                            class="pagination-btn">
+
+                            Previous
+
+                        </button>
+
+
+                        <div
+                            id="pageNumbers"
+                            class="page-numbers">
+                        </div>
+
+
+                        <button
+                            id="nextPage"
+                            class="pagination-btn">
+
+                            Next
+
+                        </button>
+
+                    </div>
+
+
+
+                    <!-- ROWS PER PAGE -->
+
+                    <div class="rows-control">
+
+                        <label for="rowsPerPage">
+                            Rows:
+                        </label>
+
+                        <select id="rowsPerPage">
+
+                            <option value="10">
+                                10
+                            </option>
+
+                            <option value="25">
+                                25
+                            </option>
+
+                            <option value="50">
+                                50
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+
+        
+<!-- =====================================================
+     PATIENT CARE PLAN SECTION
+====================================================== -->
+
+<section id="care-plan" class="extra-section">
+
+    <div class="section-heading">
+        <div>
+            <span>PATIENT CARE MANAGEMENT</span>
+            <h2>Patient Care Plan</h2>
+        </div>
+        <p>Manage doctor-reviewed care instructions and follow-ups</p>
+    </div>
+
+    <div class="patient-table-card" style="padding: 28px;">
+
+        <form id="carePlanForm">
+
+            <div class="form-section">
+                <div class="form-section-title">
+                    <div>
+                        <h3>Care Plan Information</h3>
+                        <p>Enter the patient's approved care details</p>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="carePatientId">Patient ID *</label>
+                        <input
+                            type="text"
+                            id="carePatientId"
+                            placeholder="e.g. MLP55501"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="careStatus">Doctor-Reviewed Status *</label>
+                        <select id="careStatus" required>
+                            <option value="">Select status</option>
+                            <option value="Under Review">Under Review</option>
+                            <option value="Treatment Ongoing">Treatment Ongoing</option>
+                            <option value="Stable">Stable</option>
+                            <option value="Follow-up Required">Follow-up Required</option>
+                            <option value="Review Completed">Review Completed</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="careInstructions">Care Instructions *</label>
+                        <textarea
+                            id="careInstructions"
+                            rows="4"
+                            placeholder="Enter doctor-approved instructions"
+                            required
+                        ></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="careFollowUpDate">Next Follow-up Date</label>
+                        <input type="date" id="careFollowUpDate">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="careFollowUpPurpose">Follow-up Purpose</label>
+                        <input
+                            type="text"
+                            id="careFollowUpPurpose"
+                            placeholder="e.g. Review test results"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="careReviewDate">Last Reviewed Date</label>
+                        <input type="date" id="careReviewDate">
+                    </div>
+
+                </div>
+            </div>
+
+            <p id="carePlanMessage" role="status"></p>
+
+            <div style="margin-top: 20px;">
+                
+<button type="submit" class="care-plan-save-btn">
+    <span>✓</span> Save Care Plan
+</button>
+
+            </div>
+
+        </form>
+    </div>
+
+</section>
+
+
+
+
+        <!-- =====================================================
+             ANALYTICS SECTION
+        ====================================================== -->
+
+        <section
+            id="analytics"
+            class="extra-section">
+
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span>
+                        ADVANCED ANALYTICS
+                    </span>
+
+                    <h2>
+                        Healthcare Analytics
+                    </h2>
+
+                </div>
+
+
+                <p>
+                    Deeper analysis of healthcare data
+                </p>
+
+            </div>
+
+
+
+            <!-- ANALYTICS DASHBOARD -->
+
+<div class="analytics-dashboard">
+
+    <!-- ROW 1 -->
+
+    <div class="analytics-chart-card">
+
+        <div class="analytics-chart-header">
+            <div>
+                <h3>Average Billing by Medical Condition</h3>
+                <p>Compare average healthcare billing across conditions</p>
+            </div>
+            <span>💰</span>
+        </div>
+
+        <div class="analytics-chart-box">
+            <canvas id="billingConditionChart"></canvas>
+        </div>
+
+    </div>
+
+
+    <div class="analytics-chart-card">
+
+        <div class="analytics-chart-header">
+            <div>
+                <h3>Average Length of Stay</h3>
+                <p>Average hospital stay by medical condition</p>
+            </div>
+            <span>🏥</span>
+        </div>
+
+        <div class="analytics-chart-box">
+            <canvas id="stayConditionChart"></canvas>
+        </div>
+
+    </div>
+
+
+    <!-- ROW 2 -->
+
+    <div class="analytics-chart-card">
+
+        <div class="analytics-chart-header">
+            <div>
+                <h3>Admissions by Year</h3>
+                <p>Year-wise patient admission trends</p>
+            </div>
+            <span>📈</span>
+        </div>
+
+        <div class="analytics-chart-box">
+            <canvas id="admissionsYearChart"></canvas>
+        </div>
+
+    </div>
+
+
+    <div class="analytics-chart-card">
+
+        <div class="analytics-chart-header">
+            <div>
+                <h3>Patient Distribution by Age Group</h3>
+                <p>Understand the age profile of patients</p>
+            </div>
+            <span>👥</span>
+        </div>
+
+        <div class="analytics-chart-box">
+            <canvas id="ageGroupChart"></canvas>
+        </div>
+
+    </div>
+
+
+    <!-- ROW 3 -->
+
+    <div class="analytics-chart-card">
+
+        <div class="analytics-chart-header">
+            <div>
+                <h3>Patients by Insurance Provider</h3>
+                <p>Distribution of patients across insurers</p>
+            </div>
+            <span>🛡️</span>
+        </div>
+
+        <div class="analytics-chart-box">
+            <canvas id="insuranceChart"></canvas>
+        </div>
+
+    </div>
+
+
+    <div class="analytics-chart-card">
+
+        <div class="analytics-chart-header">
+            <div>
+                <h3>Average Billing by Gender</h3>
+                <p>Compare average billing across genders</p>
+            </div>
+            <span>📊</span>
+        </div>
+
+        <div class="analytics-chart-box">
+            <canvas id="billingGenderChart"></canvas>
+        </div>
+
+    </div>
+
+</div>
+
+        </section>
+
+
+
+<!-- =====================================================
+     AI PREDICTION
+     ===================================================== -->
+
+<section id="prediction" class="dashboard-section">
+
+    <div class="section-header">
+
+        <div>
+
+            <span class="section-label">
+                MACHINE LEARNING
+            </span>
+
+            <h2>AI Prediction</h2>
+
+            <p>
+                Predict test results using the trained
+                MediLens machine learning model.
+            </p>
+
+        </div>
+
+        <span class="section-description">
+            ML-powered decision support
+        </span>
+
+    </div>
+
+
+    <div class="prediction-container">
+
+        <div class="prediction-card">
+
+            <div class="prediction-card-header">
+
+                <div>
+
+                    <h3>Patient Information</h3>
+
+                    <p>
+                        Enter the Patient ID to generate
+                        an ML-based prediction.
+                    </p>
+
+                </div>
+
+                <div class="prediction-icon">
+                    🧠
+                </div>
+
+            </div>
+
+
+            <form id="predictionForm">
+
+                <div class="prediction-form-grid">
+
+                    <!-- Patient ID -->
+
+                    <div class="form-group">
+
+                        <label for="predictionPatientId">
+                            Patient ID
+                        </label>
+
+                        <input
+                            type="text"
+                            id="predictionPatientId"
+                            name="Patient_ID"
+                            placeholder="Enter Patient ID e.g. MLP00010"
+                            autocomplete="off"
+                            required
+                        >
+
+                        <small>
+                            Enter the Patient ID to generate
+                            an ML-based prediction.
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Predict Button -->
+
+                <div class="prediction-action">
+
+                    <button
+                        type="submit"
+                        id="predictButton"
+                        class="primary-button"
+                    >
+                        🧠 Predict Test Result
+                    </button>
+
+                </div>
+
+
+                <!-- Patient Status -->
+
+                <div
+                    id="predictionPatientStatus"
+                    style="display: none;"
+                >
+                </div>
+
+
+            </form>
+
+        </div>
+
+
+        <!-- Prediction Result -->
+
+        <div
+            class="prediction-result-card"
+            id="predictionResultCard"
+        >
+
+            <div class="prediction-result-icon">
+                🔬
+            </div>
+
+            <h3>
+                Prediction Result
+            </h3>
+
+            <p class="prediction-placeholder">
+
+                Enter a Patient ID and click
+                <strong>Predict Test Result</strong>
+                to generate a prediction.
+
+            </p>
+
+
+            <div
+                id="predictionResult"
+                style="display: none;"
+            >
+
+                <div class="prediction-label">
+                    Predicted Test Result
+                </div>
+
+
+                <div
+                    id="predictionValue"
+                    class="prediction-value"
+                >
+                    --
+                </div>
+
+
+                <div
+                    id="predictionConfidence"
+                    class="prediction-confidence"
+                >
+                    Model Probability: --
+                </div>
+
+                <div class="prediction-disclaimer">
+    <strong>Decision Support:</strong>
+    This prediction is generated by the MediLens
+    machine learning model using historical patient data.
+    It is intended for analytical and decision-support
+    purposes and should not be treated as a medical diagnosis.
+</div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+        <!-- =====================================================
+             INSIGHTS SECTION
+        ====================================================== -->
+
+        <section
+            id="insights"
+            class="extra-section">
+
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span>
+                        DATA-DRIVEN INSIGHTS
+                    </span>
+
+                    <h2>
+                        MediLens Insights
+                    </h2>
+
+                </div>
+
+
+                <p>
+                    Key findings from healthcare data
+                </p>
+
+            </div>
+
+
+
+            <div class="insights-grid">
+
+
+                <!-- INSIGHT 1 -->
+
+                <div class="insight-card insight-blue">
+
+                    <div class="insight-number">
+                        01
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            CONDITION
+                        </span>
+
+
+                        <p id="insightOne">
+                            Loading insight...
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- INSIGHT 2 -->
+
+                <div class="insight-card insight-green">
+
+                    <div class="insight-number">
+                        02
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            DEMOGRAPHICS
+                        </span>
+
+
+                        <p id="insightTwo">
+                            Loading insight...
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- INSIGHT 3 -->
+
+                <div class="insight-card insight-purple">
+
+                    <div class="insight-number">
+                        03
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            BILLING & STAY
+                        </span>
+
+
+                        <p id="insightThree">
+                            Loading insight...
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             FOOTER
+        ====================================================== -->
+
+        <footer>
+
+            <div>
+
+                <strong>
+                    MediLens
+                </strong>
+
+                <span>
+                    Healthcare Analytics Platform
+                </span>
+
+            </div>
+
+
+            <span>
+                Built with Python • Flask • JavaScript • Chart.js
+            </span>
+
+        </footer>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         PATIENT DETAILS MODAL
+    ====================================================== -->
+
+    <div
+        id="patientModal"
+        class="patient-modal">
+
+
+        <div
+            class="patient-modal-overlay"
+            onclick="closePatientModal()">
+        </div>
+
+
+        <div class="patient-modal-content">
+
+
+            <div class="patient-modal-header">
+
+                <div>
+
+                    <span class="modal-label">
+                        PATIENT RECORD
+                    </span>
+
+                    <h2 id="modalPatientName">
+                        Patient Details
+                    </h2>
+
+                </div>
+
+
+                <button
+                    class="modal-close"
+                    onclick="closePatientModal()">
+
+                    ×
+
+                </button>
+
+            </div>
+
+
+
+            <div
+                class="patient-modal-body"
+                id="patientModalBody">
+
+                <!-- Patient details will be inserted by JavaScript -->
+
+            </div>
+
+
+
+            <div class="patient-modal-footer">
+
+                <button
+                    class="modal-close-btn"
+                    onclick="closePatientModal()">
+
+                    Close
+
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         ADD PATIENT MODAL
+    ====================================================== -->
+
+    <div
+        id="addPatientModal"
+        class="add-patient-modal">
+
+
+        <!-- OVERLAY -->
+
+        <div
+            class="add-patient-overlay">
+        </div>
+
+
+
+        <!-- MODAL CONTENT -->
+
+        <div class="add-patient-content">
+
+
+            <!-- HEADER -->
+
+            <div class="add-patient-header">
+
+                <div>
+
+                    <span class="modal-label">
+                        PATIENT MANAGEMENT
+                    </span>
+
+                    <h2>
+                        Add New Patient
+                    </h2>
+
+                    <p>
+                        Enter patient information to add a new record
+                        to the MediLens database.
+                    </p>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    id="closeAddPatient"
+                    class="modal-close">
+
+                    ×
+
+                </button>
+
+            </div>
+
+
+
+            <!-- FORM -->
+
+            <form
+                id="addPatientForm"
+                class="add-patient-body">
+
+
+                <!-- =================================================
+                     BASIC INFORMATION
+                ================================================== -->
+
+                <div class="form-section">
+
+
+                    <div class="form-section-title">
+
+                        <div class="form-icon">
+                            👤
+                        </div>
+
+
+                        <div>
+
+                            <h3>
+                                Patient Information
+                            </h3>
+
+                            <p>
+                                Basic patient details
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="form-grid">
+
+
+                        <!-- NAME -->
+
+                        <div class="form-group">
+
+                            <label for="patientName">
+                                Patient Name *
+                            </label>
+
+                            <input
+                                type="text"
+                                id="patientName"
+                                name="Name"
+                                placeholder="Enter patient name"
+                                required>
+
+                        </div>
+
+
+
+                        <!-- AGE -->
+
+                        <div class="form-group">
+
+                            <label for="patientAge">
+                                Age *
+                            </label>
+
+                            <input
+                                type="number"
+                                id="patientAge"
+                                name="Age"
+                                placeholder="Enter age"
+                                min="0"
+                                max="120"
+                                required>
+
+                        </div>
+
+
+
+                        <!-- GENDER -->
+
+                        <div class="form-group">
+
+                            <label for="patientGender">
+                                Gender *
+                            </label>
+
+                            <select
+                                id="patientGender"
+                                name="Gender"
+                                required>
+
+                                <option value="">
+                                    Select Gender
+                                </option>
+
+                                <option value="Male">
+                                    Male
+                                </option>
+
+                                <option value="Female">
+                                    Female
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+
+                        <!-- BLOOD TYPE -->
+
+                        <div class="form-group">
+
+                            <label for="patientBloodType">
+                                Blood Type *
+                            </label>
+
+                            <select
+                                id="patientBloodType"
+                                name="Blood Type"
+                                required>
+
+                                <option value="">
+                                    Select Blood Type
+                                </option>
+
+                                <option value="A+">
+                                    A+
+                                </option>
+
+                                <option value="A-">
+                                    A-
+                                </option>
+
+                                <option value="B+">
+                                    B+
+                                </option>
+
+                                <option value="B-">
+                                    B-
+                                </option>
+
+                                <option value="AB+">
+                                    AB+
+                                </option>
+
+                                <option value="AB-">
+                                    AB-
+                                </option>
+
+                                <option value="O+">
+                                    O+
+                                </option>
+
+                                <option value="O-">
+                                    O-
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     ADMISSION INFORMATION
+                ================================================== -->
+
+                <div class="form-section">
+
+
+                    <div class="form-section-title">
+
+                        <div class="form-icon">
+                            🏥
+                        </div>
+
+
+                        <div>
+
+                            <h3>
+                                Admission Information
+                            </h3>
+
+                            <p>
+                                Hospital admission details
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="form-grid">
+
+
+                        <!-- ADMISSION DATE -->
+
+                        <div class="form-group">
+
+                            <label for="dateOfAdmission">
+                                Admission Date *
+                            </label>
+
+                            <input
+                                type="date"
+                                id="dateOfAdmission"
+                                name="Date of Admission"
+                                required>
+
+                        </div>
+
+
+
+                        <!-- DISCHARGE DATE -->
+
+                        <div class="form-group">
+
+                            <label for="dischargeDate">
+                                Discharge Date *
+                            </label>
+
+                            <input
+                                type="date"
+                                id="dischargeDate"
+                                name="Discharge Date"
+                                required>
+
+                        </div>
+
+
+
+                        <!-- ADMISSION TYPE -->
+
+                        <div class="form-group">
+
+                            <label for="admissionType">
+                                Admission Type *
+                            </label>
+
+                            <select
+                                id="admissionType"
+                                name="Admission Type"
+                                required>
+
+                                <option value="">
+                                    Select Admission Type
+                                </option>
+
+                                <option value="Emergency">
+                                    Emergency
+                                </option>
+
+                                <option value="Elective">
+                                    Elective
+                                </option>
+
+                                <option value="Urgent">
+                                    Urgent
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+
+                        <!-- ROOM -->
+
+                        <div class="form-group">
+
+                            <label for="roomNumber">
+                                Room Number *
+                            </label>
+
+                            <input
+                                type="number"
+                                id="roomNumber"
+                                name="Room Number"
+                                placeholder="Enter room number"
+                                min="1"
+                                required>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     MEDICAL INFORMATION
+                ================================================== -->
+
+                <div class="form-section">
+
+
+                    <div class="form-section-title">
+
+                        <div class="form-icon">
+                            🩺
+                        </div>
+
+
+                        <div>
+
+                            <h3>
+                                Medical Information
+                            </h3>
+
+                            <p>
+                                Clinical information and test results
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="form-grid">
+
+
+                        <!-- CONDITION -->
+
+                        <div class="form-group">
+
+                            <label for="medicalCondition">
+                                Medical Condition *
+                            </label>
+
+                            <select
+    id="medicalCondition"
+    name="Medical Condition"
+    required>
+
+    <option value="">
+        Select Medical Condition
+    </option>
+
+</select>
+
+<input
+    type="text"
+    id="customMedicalCondition"
+    placeholder="Enter medical condition"
+    style="display: none; margin-top: 10px;"
+>
+
+                        </div>
+
+
+
+                        <!-- MEDICATION -->
+
+                        <div class="form-group">
+
+                            <label for="medication">
+                                Medication *
+                            </label>
+
+                            <input
+                                type="text"
+                                id="medication"
+                                name="Medication"
+                                placeholder="Enter medication"
+                                required>
+
+                        </div>
+
+
+
+                        <!-- TEST RESULTS -->
+
+                        <div class="form-group">
+
+                            <label for="testResults">
+                                Test Results *
+                            </label>
+
+                            <select
+                                id="testResults"
+                                name="Test Results"
+                                required>
+
+                                <option value="">
+                                    Select Test Result
+                                </option>
+
+                                <option value="Normal">
+                                    Normal
+                                </option>
+
+                                <option value="Abnormal">
+                                    Abnormal
+                                </option>
+
+                                <option value="Inconclusive">
+                                    Inconclusive
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+
+                        <!-- DOCTOR -->
+
+                        <div class="form-group">
+
+                            <label for="doctor">
+                                Doctor *
+                            </label>
+
+                            <input
+                                type="text"
+                                id="doctor"
+                                name="Doctor"
+                                placeholder="Enter doctor name"
+                                required>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     HOSPITAL & BILLING
+                ================================================== -->
+
+                <div class="form-section">
+
+
+                    <div class="form-section-title">
+
+                        <div class="form-icon">
+                            💳
+                        </div>
+
+
+                        <div>
+
+                            <h3>
+                                Hospital & Billing
+                            </h3>
+
+                            <p>
+                                Hospital, insurance and billing information
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="form-grid">
+
+
+                        <!-- HOSPITAL -->
+
+                        <div class="form-group">
+
+                            <label for="hospital">
+                                Hospital *
+                            </label>
+
+                            <input
+                                type="text"
+                                id="hospital"
+                                name="Hospital"
+                                placeholder="Enter hospital name"
+                                required>
+
+                        </div>
+
+
+
+                        <!-- INSURANCE -->
+
+                        <div class="form-group">
+
+                            <label for="insuranceProvider">
+                                Insurance Provider *
+                            </label>
+
+                            <input
+                                type="text"
+                                id="insuranceProvider"
+                                name="Insurance Provider"
+                                placeholder="Enter insurance provider"
+                                required>
+
+                        </div>
+
+
+
+                        <!-- BILLING -->
+
+                        <div class="form-group">
+
+                            <label for="billingAmount">
+                                Billing Amount *
+                            </label>
+
+                            <input
+                                type="number"
+                                id="billingAmount"
+                                name="Billing Amount"
+                                placeholder="Enter billing amount"
+                                min="0"
+                                step="0.01"
+                                required>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     FOOTER
+                ================================================== -->
+
+                <div class="add-patient-footer">
+
+
+                    <button
+                        type="button"
+                        id="cancelAddPatient"
+                        class="cancel-patient-btn">
+
+                        Cancel
+
+                    </button>
+
+
+                    <button
+                        type="submit"
+                        class="save-patient-btn">
+
+                        ✓ Save Patient
+
+                    </button>
+
+
+                </div>
+
+
+            </form>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script src="js/script.js?v=2"></script>
+
+
+</body>
+
+</html>

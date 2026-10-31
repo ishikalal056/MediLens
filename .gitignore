@@ -1,0 +1,19 @@
+# Database
+*.db
+
+# Dataset
+data/*.csv
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual environment
+venv/
+.venv/
+
+# Environment variables
+.env
+
+# Trained ML model
+ml/*.pkl

@@ -1,0 +1,1752 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>MediLens | My Health Dashboard</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        /* =========================================
+           PAGE BACKGROUND
+        ========================================= */
+
+        body {
+            margin: 0;
+
+            min-height: 100vh;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            color: #0f172a;
+
+            background:
+                radial-gradient(
+                    circle at 5% 18%,
+                    rgba(147, 197, 253, 0.28) 0,
+                    rgba(147, 197, 253, 0) 23%
+                ),
+                radial-gradient(
+                    circle at 95% 15%,
+                    rgba(34, 193, 195, 0.13) 0,
+                    rgba(34, 193, 195, 0) 25%
+                ),
+                radial-gradient(
+                    circle at 88% 82%,
+                    rgba(96, 165, 250, 0.18) 0,
+                    rgba(96, 165, 250, 0) 30%
+                ),
+                linear-gradient(
+                    135deg,
+                    #f8fbff 0%,
+                    #eef6ff 50%,
+                    #f8fbff 100%
+                );
+
+            background-attachment: fixed;
+
+            overflow-x: hidden;
+        }
+
+
+        /* =========================================
+           HEALTHCARE BACKGROUND DECORATION
+        ========================================= */
+
+        .dashboard-decoration {
+            position: fixed;
+
+            inset: 0;
+
+            overflow: hidden;
+
+            pointer-events: none;
+
+            z-index: 0;
+        }
+
+
+        .dashboard-circle {
+            position: absolute;
+
+            border-radius: 50%;
+        }
+
+
+        .circle-left {
+            width: 190px;
+            height: 190px;
+
+            top: 145px;
+            left: -65px;
+
+            background:
+                rgba(96, 165, 250, 0.10);
+        }
+
+
+        .circle-right {
+            width: 310px;
+            height: 310px;
+
+            top: -155px;
+            right: -75px;
+
+            border:
+                2px solid
+                rgba(37, 99, 235, 0.09);
+
+            background:
+                rgba(147, 197, 253, 0.03);
+        }
+
+
+        .circle-bottom {
+            width: 420px;
+            height: 420px;
+
+            right: -230px;
+            bottom: -250px;
+
+            background:
+                rgba(34, 193, 195, 0.07);
+        }
+
+
+        /* =========================================
+           MEDICAL CROSSES
+        ========================================= */
+
+        .dashboard-cross {
+            position: absolute;
+
+            color:
+                rgba(37, 99, 235, 0.08);
+
+            font-size: 52px;
+
+            font-weight: 300;
+        }
+
+
+        .cross-left {
+            top: 330px;
+            left: 65px;
+        }
+
+
+        .cross-right {
+            top: 275px;
+            right: 85px;
+        }
+
+
+        .cross-bottom {
+            bottom: 170px;
+            left: 45px;
+
+            font-size: 40px;
+        }
+
+
+        /* =========================================
+           DOT PATTERN
+        ========================================= */
+
+        .dashboard-dots {
+            position: absolute;
+
+            width: 105px;
+            height: 85px;
+
+            background-image:
+                radial-gradient(
+                    rgba(37, 99, 235, 0.18) 2px,
+                    transparent 2px
+                );
+
+            background-size: 18px 18px;
+
+            opacity: 0.75;
+        }
+
+
+        .dots-left {
+            top: 105px;
+            left: 35px;
+        }
+
+
+        .dots-right {
+            top: 220px;
+            right: 25px;
+        }
+
+
+        /* =========================================
+           ECG LINE
+        ========================================= */
+
+        .dashboard-ecg {
+            position: absolute;
+
+            left: -15px;
+            top: 47%;
+
+            width: 300px;
+            height: 85px;
+
+            opacity: 0.11;
+        }
+
+
+        .dashboard-ecg svg {
+            width: 100%;
+            height: 100%;
+        }
+
+
+        /* =========================================
+           BOTTOM WAVES
+        ========================================= */
+
+        .dashboard-wave {
+            position: absolute;
+
+            width: 900px;
+            height: 220px;
+
+            border-radius: 50%;
+
+            transform: rotate(-7deg);
+        }
+
+
+        .wave-left {
+            left: -300px;
+            bottom: -145px;
+
+            background:
+                rgba(96, 165, 250, 0.10);
+        }
+
+
+        .wave-right {
+            right: -330px;
+            bottom: -125px;
+
+            background:
+                rgba(34, 193, 195, 0.07);
+        }
+
+
+        /* =========================================
+           HEADER
+        ========================================= */
+
+        .patient-header {
+            position: relative;
+
+            z-index: 2;
+
+            height: 72px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 35px;
+
+            background:
+                rgba(255, 255, 255, 0.96);
+
+            border-bottom:
+                1px solid #e2e8f0;
+
+            box-shadow:
+                0 4px 15px
+                rgba(15, 23, 42, 0.04);
+        }
+
+
+        .brand {
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+        }
+
+
+        .brand-logo {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, #22c1c3, #2563eb);
+    box-shadow: 0 6px 15px rgba(37, 99, 235, 0.15);
+}
+
+.brand-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+
+        .brand-text h1 {
+            margin: 0;
+
+            font-size: 20px;
+
+            color: #173b67;
+        }
+
+
+        .brand-text p {
+            margin: 2px 0 0;
+
+            font-size: 11px;
+
+            color: #64748b;
+        }
+
+
+        .logout-button {
+            border: none;
+
+            padding: 9px 15px;
+
+            border-radius: 9px;
+
+            background: #eff6ff;
+
+            color: #2563eb;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.2s ease;
+        }
+
+
+        .logout-button:hover {
+            background: #dbeafe;
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =========================================
+           MAIN
+        ========================================= */
+
+        .dashboard-container {
+            position: relative;
+
+            z-index: 2;
+
+            max-width: 1200px;
+
+            margin: 0 auto;
+
+            padding: 35px 25px 60px;
+        }
+
+
+        /* =========================================
+           WELCOME
+        ========================================= */
+
+        .welcome-section {
+            margin-bottom: 28px;
+        }
+
+
+        .welcome-section h2 {
+            margin: 0;
+
+            font-size: 28px;
+
+            color: #0f172a;
+        }
+
+
+        .welcome-section p {
+            margin: 7px 0 0;
+
+            color: #64748b;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================================
+           PATIENT SUMMARY
+        ========================================= */
+
+        .summary-card {
+            display: flex;
+
+            align-items: center;
+
+            gap: 20px;
+
+            padding: 22px;
+
+            margin-bottom: 25px;
+
+            background:
+                rgba(255, 255, 255, 0.95);
+
+            border:
+                1px solid #e2e8f0;
+
+            border-radius: 16px;
+
+            box-shadow:
+                0 10px 30px
+                rgba(15, 23, 42, 0.06);
+
+            backdrop-filter: blur(8px);
+        }
+
+
+        .patient-avatar {
+            width: 70px;
+            height: 70px;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 18px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #dffafa,
+                    #dbeafe
+                );
+
+            font-size: 32px;
+        }
+
+
+        .patient-summary-info h3 {
+            margin: 0 0 5px;
+
+            font-size: 21px;
+
+            color: #0f172a;
+        }
+
+
+        .patient-summary-info p {
+            margin: 3px 0;
+
+            color: #64748b;
+
+            font-size: 13px;
+        }
+
+
+        .patient-id-badge {
+            display: inline-block;
+
+            margin-top: 6px;
+
+            padding: 5px 9px;
+
+            border-radius: 7px;
+
+            background: #ecfeff;
+
+            color: #0f766e;
+
+            font-size: 11px;
+
+            font-weight: 600;
+        }
+
+
+        /* =========================================
+           SECTION TITLE
+        ========================================= */
+
+        .section-title {
+            margin: 30px 0 15px;
+
+            font-size: 18px;
+
+            color: #0f172a;
+        }
+
+
+        /* =========================================
+           INFORMATION GRID
+        ========================================= */
+
+        .info-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 15px;
+        }
+
+
+        .info-card {
+            padding: 18px;
+
+            background:
+                rgba(255, 255, 255, 0.94);
+
+            border:
+                1px solid #e2e8f0;
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 6px 20px
+                rgba(15, 23, 42, 0.045);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+
+        .info-card:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 10px 25px
+                rgba(37, 99, 235, 0.08);
+        }
+
+
+        .info-label {
+            margin-bottom: 7px;
+
+            color: #64748b;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.4px;
+        }
+
+
+        .info-value {
+            color: #0f172a;
+
+            font-size: 15px;
+
+            font-weight: 600;
+
+            word-break: break-word;
+        }
+
+
+        /* =========================================
+           HEALTH / TEST CARD
+        ========================================= */
+
+        .health-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 18px;
+        }
+
+
+        .health-card {
+            padding: 22px;
+
+            background:
+                rgba(255, 255, 255, 0.95);
+
+            border:
+                1px solid #e2e8f0;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 6px 20px
+                rgba(15, 23, 42, 0.045);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+
+        .health-card:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 10px 28px
+                rgba(37, 99, 235, 0.08);
+        }
+
+
+        .health-card-header {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin-bottom: 14px;
+        }
+
+
+        .health-icon {
+            width: 38px;
+            height: 38px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 10px;
+
+            background: #eff6ff;
+
+            font-size: 19px;
+        }
+
+
+        .health-card-header h3 {
+            margin: 0;
+
+            font-size: 15px;
+
+            color: #334155;
+        }
+
+
+        .health-value {
+            font-size: 20px;
+
+            font-weight: 700;
+
+            color: #0f172a;
+        }
+
+
+        /* =========================================
+           TEST RESULT STATUS
+        ========================================= */
+
+        .test-result-status {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            padding: 7px 11px;
+
+            border-radius: 8px;
+
+            font-size: 13px;
+
+            font-weight: 700;
+        }
+
+
+        .test-result-status::before {
+            content: "";
+
+            width: 8px;
+            height: 8px;
+
+            border-radius: 50%;
+
+            background: currentColor;
+        }
+
+
+        .test-result-normal {
+            background: #ecfdf5;
+
+            color: #047857;
+        }
+
+
+        .test-result-abnormal {
+            background: #fef2f2;
+
+            color: #b91c1c;
+        }
+
+
+        .test-result-inconclusive {
+            background: #fff7ed;
+
+            color: #c2410c;
+        }
+
+
+        /* =========================================
+           ADMISSION TIMELINE
+        ========================================= */
+
+        .admission-timeline {
+            position: relative;
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 40px;
+
+            padding: 25px 30px;
+
+            margin-top: 5px;
+
+            background:
+                rgba(255, 255, 255, 0.95);
+
+            border:
+                1px solid #e2e8f0;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 6px 20px
+                rgba(15, 23, 42, 0.045);
+        }
+
+
+        .admission-timeline::before {
+            content: "";
+
+            position: absolute;
+
+            left: 50%;
+
+            top: 45px;
+
+            bottom: 45px;
+
+            width: 2px;
+
+            background: #dbeafe;
+
+            transform: translateX(-50%);
+        }
+
+
+        .timeline-item {
+            position: relative;
+
+            text-align: center;
+
+            z-index: 1;
+        }
+
+
+        .timeline-dot {
+            width: 18px;
+            height: 18px;
+
+            margin: 0 auto 12px;
+
+            border-radius: 50%;
+
+            background: #2563eb;
+
+            border: 4px solid #dbeafe;
+
+            box-sizing: content-box;
+        }
+
+
+        .timeline-item:last-child .timeline-dot {
+            background: #0ea5a4;
+
+            border-color: #ccfbf1;
+        }
+
+
+        .timeline-label {
+            margin-bottom: 5px;
+
+            color: #64748b;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.5px;
+        }
+
+
+        .timeline-date {
+            color: #0f172a;
+
+            font-size: 16px;
+
+            font-weight: 700;
+        }
+
+
+        .timeline-description {
+            margin-top: 5px;
+
+            color: #64748b;
+
+            font-size: 12px;
+        }
+
+
+        /* =========================================
+           BILLING
+        ========================================= */
+
+        .billing-card {
+            padding: 22px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(236, 254, 255, 0.96),
+                    rgba(239, 246, 255, 0.96)
+                );
+
+            border:
+                1px solid #bae6fd;
+
+            border-radius: 15px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            box-shadow:
+                0 7px 22px
+                rgba(14, 165, 164, 0.06);
+        }
+
+
+        .billing-card h3 {
+            margin: 0 0 5px;
+
+            font-size: 15px;
+
+            color: #334155;
+        }
+
+
+        .billing-card p {
+            margin: 0;
+
+            color: #64748b;
+
+            font-size: 12px;
+        }
+
+
+        .billing-amount {
+            font-size: 25px;
+
+            font-weight: 700;
+
+            color: #0f766e;
+        }
+
+
+        /* =========================================
+           LOADING
+        ========================================= */
+
+        .loading {
+            text-align: center;
+
+            padding: 80px 20px;
+
+            color: #64748b;
+        }
+
+
+        /* =========================================
+           ERROR
+        ========================================= */
+
+        .dashboard-error {
+            display: none;
+
+            max-width: 500px;
+
+            margin: 80px auto;
+
+            padding: 25px;
+
+            text-align: center;
+
+            background: #ffffff;
+
+            border:
+                1px solid #fecaca;
+
+            border-radius: 15px;
+
+            color: #b91c1c;
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 900px) {
+
+            .info-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .patient-header {
+                padding: 0 15px;
+            }
+
+
+            .brand-text p {
+                display: none;
+            }
+
+
+            .dashboard-container {
+                padding: 25px 15px 50px;
+            }
+
+
+            .welcome-section h2 {
+                font-size: 23px;
+            }
+
+
+            .summary-card {
+                align-items: flex-start;
+            }
+
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+
+            .health-grid {
+                grid-template-columns: 1fr;
+            }
+
+
+            .admission-timeline {
+                grid-template-columns: 1fr;
+
+                gap: 25px;
+
+                padding: 25px 20px;
+            }
+
+
+            .admission-timeline::before {
+                display: none;
+            }
+
+
+            .billing-card {
+                gap: 15px;
+
+                align-items: flex-start;
+
+                flex-direction: column;
+            }
+
+
+            .dashboard-ecg {
+                left: -120px;
+            }
+
+
+            .cross-left {
+                left: 15px;
+            }
+
+
+            .cross-right {
+                right: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================
+         HEALTHCARE BACKGROUND DECORATION
+    ========================================= -->
+
+    <div class="dashboard-decoration">
+
+        <div class="dashboard-circle circle-left"></div>
+
+        <div class="dashboard-circle circle-right"></div>
+
+        <div class="dashboard-circle circle-bottom"></div>
+
+
+        <div class="dashboard-cross cross-left">
+            ✚
+        </div>
+
+        <div class="dashboard-cross cross-right">
+            ✚
+        </div>
+
+        <div class="dashboard-cross cross-bottom">
+            ✚
+        </div>
+
+
+        <div class="dashboard-dots dots-left"></div>
+
+        <div class="dashboard-dots dots-right"></div>
+
+
+        <!-- ECG -->
+
+        <div class="dashboard-ecg">
+
+            <svg
+                viewBox="0 0 300 85"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+
+                <path
+                    d="M0 45
+                       H55
+                       L70 45
+                       L83 18
+                       L98 72
+                       L112 33
+                       L125 45
+                       H190
+                       L205 45
+                       L218 25
+                       L232 64
+                       L245 45
+                       H300"
+                    stroke="#2563eb"
+                    stroke-width="4"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"/>
+
+            </svg>
+
+        </div>
+
+
+        <div class="dashboard-wave wave-left"></div>
+
+        <div class="dashboard-wave wave-right"></div>
+
+    </div>
+
+
+
+    <!-- =========================================
+         HEADER
+    ========================================= -->
+
+    <header class="patient-header">
+
+        <div class="brand">
+
+            <div class="brand-logo">
+    <img src="images/medilens-logo.png" alt="MediLens Logo">
+</div>
+
+
+            <div class="brand-text">
+
+                <h1>
+                    MediLens
+                </h1>
+
+                <p>
+                    Patient Portal
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <button
+            id="patientLogoutBtn"
+            class="logout-button">
+
+            Logout
+
+        </button>
+
+    </header>
+
+
+
+    <!-- =========================================
+         MAIN DASHBOARD
+    ========================================= -->
+
+    <main
+        class="dashboard-container"
+        id="patientDashboard">
+
+
+        <!-- LOADING -->
+
+        <div
+            id="dashboardLoading"
+            class="loading">
+
+            Loading your health information...
+
+        </div>
+
+
+
+        <!-- ERROR -->
+
+        <div
+            id="dashboardError"
+            class="dashboard-error">
+
+            <h3>
+                Unable to load patient information
+            </h3>
+
+            <p>
+                Please login again.
+            </p>
+
+        </div>
+
+
+
+        <!-- ACTUAL CONTENT -->
+
+        <div
+            id="dashboardContent"
+            style="display: none;">
+
+
+            <!-- WELCOME -->
+
+            <section class="welcome-section">
+
+                <h2>
+                    Welcome,
+                    <span id="patientName">
+                        Patient
+                    </span>
+                    👋
+                </h2>
+
+                <p>
+                    Here you can view your personal
+                    healthcare information.
+                </p>
+
+            </section>
+
+
+
+            <!-- PATIENT SUMMARY -->
+
+            <section class="summary-card">
+
+                <div class="patient-avatar">
+                    👤
+                </div>
+
+
+                <div class="patient-summary-info">
+
+                    <h3 id="summaryName">
+                        —
+                    </h3>
+
+                    <p>
+                        Patient ID:
+                        <strong id="summaryPatientId">
+                            —
+                        </strong>
+                    </p>
+
+                    <p>
+                        Hospital:
+                        <strong id="summaryHospital">
+                            —
+                        </strong>
+                    </p>
+
+                    <span
+                        class="patient-id-badge"
+                        id="summaryAdmissionType">
+
+                        —
+
+                    </span>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- PERSONAL INFORMATION -->
+
+            <h3 class="section-title">
+                Personal Information
+            </h3>
+
+
+            <section class="info-grid">
+
+
+                <div class="info-card">
+
+                    <div class="info-label">
+                        Patient ID
+                    </div>
+
+                    <div
+                        class="info-value"
+                        id="patientId">
+
+                        —
+
+                    </div>
+
+                </div>
+
+
+                <div class="info-card">
+
+                    <div class="info-label">
+                        Age
+                    </div>
+
+                    <div
+                        class="info-value"
+                        id="patientAge">
+
+                        —
+
+                    </div>
+
+                </div>
+
+
+                <div class="info-card">
+
+                    <div class="info-label">
+                        Gender
+                    </div>
+
+                    <div
+                        class="info-value"
+                        id="patientGender">
+
+                        —
+
+                    </div>
+
+                </div>
+
+
+                <div class="info-card">
+
+                    <div class="info-label">
+                        Blood Type
+                    </div>
+
+                    <div
+                        class="info-value"
+                        id="patientBloodType">
+
+                        —
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- MEDICAL INFORMATION -->
+
+            <h3 class="section-title">
+                Medical Information
+            </h3>
+
+
+            <section class="health-grid">
+
+
+                <div class="health-card">
+
+                    <div class="health-card-header">
+
+                        <div class="health-icon">
+                            🩺
+                        </div>
+
+                        <h3>
+                            Medical Condition
+                        </h3>
+
+                    </div>
+
+                    <div
+                        class="health-value"
+                        id="patientCondition">
+
+                        —
+
+                    </div>
+
+                </div>
+
+
+                <div class="health-card">
+
+                    <div class="health-card-header">
+
+                        <div class="health-icon">
+                            🧪
+                        </div>
+
+                        <h3>
+                            Test Results
+                        </h3>
+
+                    </div>
+
+                    <div
+                        class="test-result-status"
+                        id="patientTestResult">
+
+                        —
+
+                    </div>
+
+                </div>
+
+
+                <div class="health-card">
+
+                    <div class="health-card-header">
+
+                        <div class="health-icon">
+                            💊
+                        </div>
+
+                        <h3>
+                            Medication
+                        </h3>
+
+                    </div>
+
+                    <div
+                        class="health-value"
+                        id="patientMedication">
+
+                        —
+
+                    </div>
+
+                </div>
+
+
+                <div class="health-card">
+
+                    <div class="health-card-header">
+
+                        <div class="health-icon">
+                            👨‍⚕️
+                        </div>
+
+                        <h3>
+                            Doctor
+                        </h3>
+
+                    </div>
+
+                    <div
+                        class="health-value"
+                        id="patientDoctor">
+
+                        —
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- ADMISSION INFORMATION -->
+
+            <h3 class="section-title">
+                Admission Information
+            </h3>
+
+
+            <section class="info-grid">
+
+
+                <div class="info-card">
+
+                    <div class="info-label">
+                        Admission Date
+                    </div>
+
+                    <div
+                        class="info-value"
+                        id="patientAdmissionDate">
+
+                        —
+
+                    </div>
+
+                </div>
+
+
+                <div class="info-card">
+
+                    <div class="info-label">
+                        Discharge Date
+                    </div>
+
+                    <div
+                        class="info-value"
+                        id="patientDischargeDate">
+
+                        —
+
+                    </div>
+
+                </div>
+
+
+                <div class="info-card">
+
+                    <div class="info-label">
+                        Admission Type
+                    </div>
+
+                    <div
+                        class="info-value"
+                        id="patientAdmissionType">
+
+                        —
+
+                    </div>
+
+                </div>
+
+
+                <div class="info-card">
+
+                    <div class="info-label">
+                        Room Number
+                    </div>
+
+                    <div
+                        class="info-value"
+                        id="patientRoom">
+
+                        —
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =========================================
+                 ADMISSION TIMELINE
+            ========================================= -->
+
+            <h3 class="section-title">
+                Admission Journey
+            </h3>
+
+
+            <section class="admission-timeline">
+
+                <!-- ADMISSION -->
+
+                <div class="timeline-item">
+
+                    <div class="timeline-dot"></div>
+
+                    <div class="timeline-label">
+                        Admission
+                    </div>
+
+                    <div
+                        class="timeline-date"
+                        id="timelineAdmissionDate">
+
+                        —
+
+                    </div>
+
+                    <div class="timeline-description">
+                        Patient admitted
+                    </div>
+
+                </div>
+
+
+                <!-- DISCHARGE -->
+
+                <div class="timeline-item">
+
+                    <div class="timeline-dot"></div>
+
+                    <div class="timeline-label">
+                        Discharge
+                    </div>
+
+                    <div
+                        class="timeline-date"
+                        id="timelineDischargeDate">
+
+                        —
+
+                    </div>
+
+                    <div class="timeline-description">
+                        Patient discharged
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- OTHER INFORMATION -->
+
+            <h3 class="section-title">
+                Hospital & Insurance
+            </h3>
+
+
+            <section class="info-grid">
+
+
+                <div class="info-card">
+
+                    <div class="info-label">
+                        Hospital
+                    </div>
+
+                    <div
+                        class="info-value"
+                        id="patientHospital">
+
+                        —
+
+                    </div>
+
+                </div>
+
+
+                <div class="info-card">
+
+                    <div class="info-label">
+                        Insurance Provider
+                    </div>
+
+                    <div
+                        class="info-value"
+                        id="patientInsurance">
+
+                        —
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- BILLING -->
+
+            <h3 class="section-title">
+                Billing Information
+            </h3>
+
+
+            <section class="billing-card">
+
+                <div>
+
+                    <h3>
+                        Total Billing Amount
+                    </h3>
+
+                    <p>
+                        Amount recorded in MediLens
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="billing-amount"
+                    id="patientBilling">
+
+                    ₹0.00
+
+                </div>
+
+            </section>
+
+
+            <!-- MY CARE PLAN SECTION -->
+
+<h3 class="section-title">My Care Plan</h3>
+
+<section class="health-card" id="patientCarePlan"
+    style="margin-bottom: 25px; padding: 28px;">
+
+    <!-- Loading Message -->
+    <div id="carePlanLoading">
+        Loading your care plan...
+    </div>
+
+    <!-- Care Plan Details -->
+    <div id="carePlanDetails" style="display: none;">
+
+        <div style="margin-bottom: 22px;">
+            <div class="info-label">Doctor-Reviewed Status</div>
+            <h3 id="portalCareStatus">—</h3>
+        </div>
+
+        <div style="margin-bottom: 22px;">
+            <div class="info-label">Care Instructions</div>
+            <p id="portalCareInstructions">—</p>
+        </div>
+
+        <div style="margin-bottom: 22px;">
+            <div class="info-label">Next Follow-up Date</div>
+            <h3 id="portalFollowUpDate">—</h3>
+        </div>
+
+        <div style="margin-bottom: 22px;">
+            <div class="info-label">Follow-up Purpose</div>
+            <p id="portalFollowUpPurpose">—</p>
+        </div>
+
+        <div>
+            <div class="info-label">Last Reviewed Date</div>
+            <p id="portalLastReviewed">—</p>
+        </div>
+
+    </div>
+
+    <!-- No Care Plan Message -->
+    <div id="carePlanEmpty" style="display: none;">
+        <h3>No Care Plan Available Yet</h3>
+        <p>
+            Your hospital has not added a care plan yet.
+            Please contact your hospital for further information.
+        </p>
+    </div>
+
+</section>
+
+<!-- END MY CARE PLAN SECTION -->
+
+
+        </div>
+
+    </main>
+
+
+
+    <!-- PATIENT JS -->
+
+    <script src="js/patient.js"></script>
+
+
+</body>
+
+</html>
